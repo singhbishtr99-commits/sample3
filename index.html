@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise for 2026</title>
+    <style>
+        :root {
+            --whatsapp-green: #00a884;
+            --love-red: #e74c3c;
+            --soft-white: #ffffff;
+            --cloud-pink: #fff0f0;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--soft-white);
+            overflow: hidden;
+        }
+
+        /* --- STAGE 1: WhatsApp Notification --- */
+        #notification-overlay {
+            position: fixed; inset: 0;
+            background: #0b141a;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; transition: opacity 0.8s ease;
+        }
+
+        .chat-notification {
+            background: #202c33; width: 320px;
+            padding: 20px; border-radius: 12px;
+            color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .chat-header { color: var(--whatsapp-green); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+        .chat-msg { background: #2a3942; padding: 10px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid var(--whatsapp-green); }
+
+        .btn-view {
+            background: var(--whatsapp-green); color: white; border: none;
+            width: 100%; padding: 10px; border-radius: 20px;
+            font-weight: bold; cursor: pointer;
+        }
+
+        /* --- STAGE 2: The Main Website --- */
+        #main-site {
+            display: none; width: 100%; height: 100vh;
+            background: radial-gradient(circle, var(--soft-white) 30%, var(--cloud-pink) 100%);
+            position: relative; overflow: hidden;
+            justify-content: center; align-items: center;
+        }
+
+        /* Soft Reddish Love Clouds */
+        .cloud {
+            position: absolute; background: rgba(246, 7, 71, 0.571);
+            filter: blur(80px); border-radius: 50%; z-index: 1;
+        }
+
+        /* CSS Hearts */
+        .heart {
+            position: absolute; width: 40px; height: 40px;
+            background: var(--love-red); transform: rotate(45deg);
+            opacity: 0.2; z-index: 2; animation: floatUp 10s linear infinite;
+        }
+        .heart::before, .heart::after {
+            content: ""; position: absolute; width: 40px; height: 40px;
+            background: var(--love-red); border-radius: 50%;
+        }
+        .heart::before { left: -20px; }
+        .heart::after { top: -20px; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(45deg); opacity: 0; }
+            20% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+        }
+
+        /* Falling Photos (Non-Messy) */
+        .memories-layer { position: absolute; inset: 0; z-index: 3; }
+        .photo-frame {
+            position: absolute; width: 150px; height: 180px;
+            background: white; padding: 8px; padding-bottom: 25px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-radius: 2px; opacity: 0;
+            animation: slowFall 9s linear forwards;
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        @keyframes slowFall {
+            0% { transform: translateY(-200px) rotate(-5deg); opacity: 1; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(5deg); opacity: 0; }
+        }
+
+        /* Message Card */
+        .content-card {
+            position: relative; z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px; border-radius: 30px;
+            max-width: 500px; text-align: center;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.05);
+        }
+
+        .content-card h1 { color: var(--love-red); font-family: 'Georgia', serif; }
+        .content-card p { font-size: 1.1rem; line-height: 1.8; color: #444; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <audio id="music" loop>
+        <source src="We-Wish-You-chosic.com_.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="notification-overlay">
+        <div class="chat-notification">
+            <div class="chat-header">WhatsApp</div>
+            <div class="chat-msg">
+                <strong>Special One ❤️</strong><br>
+                Hey, I gathered all our 2025 memories here. Check it out!
+            </div>
+            <button class="btn-view" onclick="openSurprise()">Click to see message</button>
+        </div>
+    </div>
+
+    <div id="main-site">
+        <div class="cloud" style="width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+        <div class="cloud" style="width: 300px; height: 300px; bottom: -50px; right: -50px;"></div>
+        
+        <div id="heart-container"></div>
+        <div id="photo-container" class="memories-layer"></div>
+
+        <div class="content-card">
+            <h1>Happy New Year 2026</h1>
+            <p>
+                "Looking back at 2025, every beautiful moment has you in it. 
+                These photos are just small pieces of the joy you bring into my life. 
+                Thank you for being my person, my laughter, and my home. As we step into 2026,
+                 I realize that my favorite place in the world isn't a location,
+                but a feeling—and that feeling is you. I don't know what this year holds,
+                but as long as I’m holding your hand, I know it will be my best one yet.
+                Let’s make this year even more unforgettable than the last.
+                 I can't wait to create a whole new year of memories with you."
+            </p>
+            <div style="margin-top:20px; font-weight: bold; color: var(--love-red);">I Love You Always ❤️</div>
+        </div>
+    </div>
+
+    <script>
+        function openSurprise() {
+            document.getElementById('music').play();
+            document.getElementById('notification-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('notification-overlay').style.display = 'none';
+                document.getElementById('main-site').style.display = 'flex';
+                startAnimations();
+            }, 800);
+        }
+
+        function startAnimations() {
+    // 1. Generate Floating Hearts (This stays the same)
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 1 + 7) + "s";
+        document.getElementById('heart-container').appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+    }, 1000);
+
+    // 2. Generate Falling Photos
+    const photoLinks = [
+        'download.jpeg',
+        'Made for Each Other 💑.jpeg',
+        'Virat Kohli And Anushka Sharma ♥️.jpeg',
+        'virat kohli and anushka sharma photo.jpeg',
+        'Virat Kohli And Anushka Sharma Spotted At A Shoot Together, His Unique Look Make Heads Turn [Photos].jpeg',
+        'Virushka HD Wallpapers.jpeg',
+        'virushka.jpeg'
+    ];
+    let pIndex = 0;
+
+    // Create a function we can call anytime
+    const createPhoto = () => {
+        const frame = document.createElement('div');
+        frame.className = 'photo-frame';
+        const img = document.createElement('img');
+        img.src = photoLinks[pIndex % photoLinks.length];
+        
+        const isLeft = Math.random() > 0.5;
+        frame.style.left = isLeft ? (Math.random() * 15) + "%" : (80 + Math.random() * 5) + "%";
+        
+        frame.appendChild(img);
+        document.getElementById('photo-container').appendChild(frame);
+        pIndex++;
+        setTimeout(() => frame.remove(), 12000);
+    };
+
+    // --- KEY CHANGES HERE ---
+    createPhoto(); // Call it ONCE immediately so it shows right away
+    setInterval(createPhoto, 4000); // Then start the 4-second loop
+}
+    </script>
+</body>
+</html>
